@@ -38,14 +38,25 @@ section {
 }
 
 .carrossel {
+  position: relative;
   max-width: 100rem;
 
+  & .container {
+    overflow: hidden;
+  }
+
   & .imagens {
+    width: max-content;
     gap: 0.82rem;
 
     & .imagem {
       position: relative;
-      width: 32.78666rem;
+      /* (1000px - (2 * 8,2px) / 3*/
+      /* (100vw - (2 * 8,2px) / 3*/
+      width: min(
+        calc(calc(100rem - calc(2 * 0.82rem)) / 3),
+        calc(calc(100vw - calc(2 * 0.82rem)) / 3)
+      );
       justify-content: center;
       overflow: hidden;
       align-items: center;
@@ -54,6 +65,7 @@ section {
 
       &.emfoco:after {
         background-color: transparent;
+        backdrop-filter: none;
       }
 
       &::after {
@@ -61,12 +73,36 @@ section {
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: rgba(255, 255, 255, 0.753);
+        background-color: rgba(255, 255, 255, 0.61);
+        backdrop-filter: blur (2px);
       }
 
       & img {
         height: 100%;
       }
+    }
+  }
+  & .botao {
+    background-color: #303030;
+    color: white;
+    border-radius: 0.8rem;
+    width: 3rem;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    cursor: pointer;
+    box-shadow: 0, 0, 0.4rem rgba(0, 0, 0, 0.2);
+
+    &.esquerda {
+      transform: translate(-50%, -50%);
+    }
+
+    &.direita {
+      right: 0;
+      transform: translate(50%, -50%);
     }
   }
 }
